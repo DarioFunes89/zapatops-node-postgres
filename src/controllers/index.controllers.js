@@ -8,8 +8,10 @@ const pool = new Pool({
     port: '5432'
 });
 
-const getZapatillas = (req,res) =>{
-    pool.query('SELECT * FROM zapatillas');
+const getZapatillas = async (req,res) =>{
+    const response = await pool.query('SELECT * FROM zapatillas');
+    console.log(response.rows);
+    res.send('zapatillas');
 }
 
 module.exports = {
