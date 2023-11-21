@@ -1,8 +1,8 @@
 const {Router} = require('express');
 const router = Router();
 
-router.get('/zapatillas', (req,res) =>{
-    res.send('zapatillas');
-})
+const {getZapatillas} = require('../controllers/index.controllers')
+
+router.get('/zapatillas', getZapatillas)
 
 module.exports = router;
