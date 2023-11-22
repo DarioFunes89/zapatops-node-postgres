@@ -10,10 +10,19 @@ const pool = new Pool({
 
 const getZapatillas = async (req,res) =>{
     const response = await pool.query('SELECT * FROM zapatillas');
-    console.log(response.rows);
-    res.send('zapatillas');
+    res.status(200).json(response.rows);
 }
 
+const createZapatillas = async (req,res) =>{
+    const {name, talle} = req.body;
+    
+    const response = await pool.query('INSERT INTO zapatillas (name, talle) VALUES ($1, $2)', [name,talle])
+    console.log(response);
+    res.send('zapatilla creada')
+}
+
+
 module.exports = {
-    getZapatillas
+    getZapatillas,
+    createZapatillas
 }
