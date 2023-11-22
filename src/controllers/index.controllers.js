@@ -13,6 +13,13 @@ const getZapatillas = async (req,res) =>{
     res.status(200).json(response.rows);
 }
 
+const getZapatillasById = async (req,res) => {
+    const {id} = req.params;
+
+    const response = await pool.query('SELECT * FROM zapatillas WHERE id = $1', [id]);
+    res.status(200).json(response.rows[0]);
+}
+
 const createZapatillas = async (req,res) =>{
     const {name, talle} = req.body;
     
@@ -26,5 +33,6 @@ const createZapatillas = async (req,res) =>{
 
 module.exports = {
     getZapatillas,
-    createZapatillas
+    createZapatillas,
+    getZapatillasById
 }
