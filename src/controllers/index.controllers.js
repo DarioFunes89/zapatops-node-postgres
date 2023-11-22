@@ -17,9 +17,11 @@ const createZapatillas = async (req,res) =>{
     const {name, talle} = req.body;
     
     const response = await pool.query('INSERT INTO zapatillas (name, talle) VALUES ($1, $2)', [name,talle]);
-    console.log(response);
-    res.send('zapatilla creada')
-}
+    res.json({
+        message: 'Zapatillas creada',
+        body: {name, talle}
+    });
+};
 
 
 module.exports = {
