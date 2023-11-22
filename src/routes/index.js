@@ -5,6 +5,6 @@ const {getZapatillas, createZapatillas} = require('../controllers/index.controll
 
 router.get('/zapatillas', getZapatillas)
 
-router.post('zapatillas', createZapatillas)
+router.post('/zapatillas', createZapatillas)
 
 module.exports = router;
