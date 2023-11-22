@@ -30,9 +30,27 @@ const createZapatillas = async (req,res) =>{
     });
 };
 
+const deleteZapatillas = async (req,res) =>{
+    const {id} = req.params;
+
+    const response = await pool.query('SELECT * FROM zapatillas WHERE id = $1', [id]);
+        if(response.rows.length === 0){ 
+        res.status(404).json({
+            message: 'Zapatilla inexistent'
+        })
+        } else {
+    const responseDelete = await pool.query('DELETE FROM zapatillas WHERE id = $1 RETURNING *', [id]);
+        res.status(200).json({
+            message: 'Zapatilla eliminada',
+            body: responseDelete.rows[0]
+    })}
+
+}
+
 
 module.exports = {
     getZapatillas,
     createZapatillas,
-    getZapatillasById
+    getZapatillasById,
+    deleteZapatillas
 }
