@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const {getZapatillas, createZapatillas, getZapatillasById, deleteZapatillas} = require('../controllers/index.controllers')
+const {getZapatillas, createZapatillas, getZapatillasById, deleteZapatillas} = require('../controllers/zapatillas.controllers')
 
 router.get('/zapatillas', getZapatillas);
 router.get('/zapatillas/:id', getZapatillasById);
