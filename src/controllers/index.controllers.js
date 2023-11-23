@@ -17,7 +17,15 @@ const getZapatillasById = async (req,res) => {
     const {id} = req.params;
 
     const response = await pool.query('SELECT * FROM zapatillas WHERE id = $1', [id]);
-    res.status(200).json(response.rows[0]);
+    if(response.rows.length === 0){ 
+        res.status(404).json({
+            message: 'Zapatilla inexistente'
+        })
+        } else {
+        res.status(200).json({
+            message: 'Zapatilla encontrada',
+            body: response.rows[0]
+    })}
 }
 
 const createZapatillas = async (req,res) =>{
@@ -36,7 +44,7 @@ const deleteZapatillas = async (req,res) =>{
     const response = await pool.query('SELECT * FROM zapatillas WHERE id = $1', [id]);
         if(response.rows.length === 0){ 
         res.status(404).json({
-            message: 'Zapatilla inexistent'
+            message: 'Zapatilla inexistente'
         })
         } else {
     const responseDelete = await pool.query('DELETE FROM zapatillas WHERE id = $1 RETURNING *', [id]);
