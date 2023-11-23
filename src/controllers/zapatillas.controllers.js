@@ -48,11 +48,28 @@ const updateZapatillas = async (req, res) => {
                 message: 'Zapatilla inexistente'
             })
         } else {
-            const updateZapatilla = await pool.query('UPDATE zapatillas SET name = $1, talle = $2 WHERE id = $3', [name,talle,id]);
-            res.json({
-                message: 'Zapatilla actualizada',
-                body: {name, talle}
-            })
+            if(name && talle){
+                
+                const updateZapatilla = await pool.query('UPDATE zapatillas SET name = $1, talle = $2 WHERE id = $3', [name,talle,id]);
+                res.json({
+                    message: 'Zapatilla actualizada',
+                    body: {name, talle}
+                })
+            }
+            if(name && !talle){
+                const updateName = await pool.query('UPDATE zapatillas SET name = $1, WHERE id = $2', [name,id]);
+                res.json({
+                    message: 'Zapatilla actualizada',
+                    body: {name}
+                })
+            }
+            if(talle && !name){
+                const updateTalle = await pool.query('UPDATE zapatillas SET talle = $1, WHERE id = $2', [talle,id]);
+                res.json({
+                    message: 'Zapatilla actualizada',
+                    body: {talle}
+                })
+            }
         }
 };
 
